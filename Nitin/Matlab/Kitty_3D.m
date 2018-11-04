@@ -22,7 +22,7 @@ axis(gca, 'equal');
 axis([0 2 -2 10 0 1.5]);
 grid on;
 % view(2)
-view([1 1 0])
+view([1 1 1]);
 
 w = 0.1;
 
