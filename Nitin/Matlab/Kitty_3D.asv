@@ -22,7 +22,7 @@ axis(gca, 'equal');
 axis([0 2 -2 10 0 1.5]);
 grid on;
 % view(2)
-view([1 1 0])
+% view([1 1 1])
 
 w = 0.1;
 
@@ -61,7 +61,7 @@ P3 = [0.45,o3(2)+x(i),0.40];
 P31 =  P3 + [0, l1*cos(theta2(1)) , -l1*sin(theta2(1))];
 P32 = P3 +[0, (0.2/3)+l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(1)) - l2*sin(theta2(1) + theta2(2))];
 
-P4 = [0.45,0.75+o4(2)+x(i),0.40];
+P4 = P4 + [0 x(i) 0];
 P41 =  P4 + [0, l1*cos(theta2(1)) , -l1*sin(theta2(1))];
 P42 = P4 +[0, 0.2+l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(1)) - l2*sin(theta2(1) + theta2(2))];
 
@@ -70,7 +70,7 @@ x_swing = -x(i)-a*cos(t/stride_time*pi);
 y_swing = z - b*sin(t/stride_time*pi);
 [theta1(1), theta1(2)] = inverse_kinematics_swing(x_swing, y_swing, l1, l2); %stance leg
 
-P1 = [0, 0+o1(2)+x(i), 0.40];
+P1 = P1 + [0 x(i) 0];
 P11 = P1 + [0, l1*cos(theta1(1)) , -l1*sin(theta1(1))];
 P12 = P1 + [0, l1*cos(theta1(1)) + l2*cos(theta1(1)+theta1(2)) , -l1*sin(theta1(1))-l2*sin(theta1(1) + theta1(2))];
 %P5 = [x_swing y_swing]
@@ -99,7 +99,7 @@ P12 = P1 + [0, l1*cos(theta1(1)) + l2*cos(theta1(1)+theta1(2)) , -l1*sin(theta1(
  line12 = line([P4(1) P3(1)],[P4(2) P3(2)],[P4(3) P3(3)] , 'LineWidth',3);
  line13 = line([P3(1) P1(1)],[P3(2) P1(2)],[P3(3) P1(3)] , 'LineWidth',3);
  
- pause(0.2); 
+ pause(0.5);
  %remove previous identifiers
  delete(line2);
  delete(line3);
@@ -115,11 +115,11 @@ P12 = P1 + [0, l1*cos(theta1(1)) + l2*cos(theta1(1)+theta1(2)) , -l1*sin(theta1(
  delete(line13);
  
   if(x(i)>stride_length/2)
-    o1 = o1+ [0 stride_length 0];
-    o2 = o2+ [0 stride_length 0];
-    o3 = o3+ [0 stride_length 0];
-    o4 = o4+ [0 stride_length 0];
-    flag = 2;
+    P1 = P1+ [0 stride_length 0];
+    P2 = P2+ [0 stride_length 0];
+    P3 = P3+ [0 stride_length 0];
+    P4 = P4+ [0 stride_length 0];
+    flag =2;
     i=1;
     break;
     
@@ -140,15 +140,15 @@ x_dot(i) = x_0*sinh(t/Tc)/Tc +x_dot0*cosh(t/Tc);
 %[theta(3) theta(4)] = inverse_kinematics(xe5, ye5, a1, a2);
 
 %3 Stance Leg
-P1 = [0, 0+o1(2)+x(i), 0.40];
+P1 = P1 + [0 x(i) 0];
 P11 =  P1 + [0, l1*cos(theta3(1)) , -l1*sin(theta3(1))];
 P12 = P1 +[0, 0.2+l1*cos(theta3(1)) + l2*cos(theta3(1)+theta3(2)) , -l1*sin(theta3(1)) - l2*sin(theta3(1) + theta3(2))];
 
-P3 = [0.45,o3(2)+x(i),0.40];
+P3 = P3 + [0 x(i) 0];
 P31 =  P3 + [0, l1*cos(theta3(1)) , -l1*sin(theta3(1))];
 P32 = P3 +[0, (-0.2/3)+l1*cos(theta3(1)) + l2*cos(theta3(1)+theta3(2)) , -l1*sin(theta3(1)) - l2*sin(theta3(1) + theta3(2))];
 
-P4 = [0.45,0.75+o4(2)+x(i),0.40];
+P4 = P4 + [0 x(i) 0];
 P41 =  P4 + [0, l1*cos(theta3(1)) , -l1*sin(theta3(1))];
 P42 = P4 +[0, (0.2/3)+l1*cos(theta3(1)) + l2*cos(theta3(1)+theta3(2)) , -l1*sin(theta3(1)) - l2*sin(theta3(1) + theta3(2))];
 
@@ -157,7 +157,7 @@ x_swing = -x(i)-a*cos(t/stride_time*pi);
 y_swing = z - b*sin(t/stride_time*pi);
 [theta2(1), theta2(2)] = inverse_kinematics_swing(x_swing, y_swing, l1, l2); %stance leg
 
-P2 = [0, 0.75+o2(2)+x(i) ,0.40];
+P2 = P2 + [0 x(i) 0];
 P21 = P2 + [0, l1*cos(theta2(1)) , -l1*sin(theta2(1))];
 P22 = P2 + [0, l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(1))-l2*sin(theta2(1) + theta2(2))];
 %P5 = [x_swing y_swing]
@@ -186,7 +186,7 @@ P22 = P2 + [0, l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(
  line12 = line([P4(1) P3(1)],[P4(2) P3(2)],[P4(3) P3(3)] , 'LineWidth',3);
  line13 = line([P3(1) P1(1)],[P3(2) P1(2)],[P3(3) P1(3)] , 'LineWidth',3);
  
- pause(0.2); 
+ pause(0.5);
  %remove previous identifiers
  delete(line2);
  delete(line3);
@@ -202,10 +202,10 @@ P22 = P2 + [0, l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(
  delete(line13);
  
 if(x(i)>stride_length/2)
-    o1 = o1+ [0 stride_length 0];
-    o2 = o2+ [0 stride_length 0];
-    o3 = o3+ [0 stride_length 0];
-    o4 = o4+ [0 stride_length 0];
+        P1 = P1+ [0 stride_length 0];
+    P2 = P2+ [0 stride_length 0];
+    P3 = P3+ [0 stride_length 0];
+    P4 = P4+ [0 stride_length 0];
     flag =3;
     i=1;
     break;
@@ -227,15 +227,15 @@ x_dot(i) = x_0*sinh(t/Tc)/Tc +x_dot0*cosh(t/Tc);
 %[theta(3) theta(4)] = inverse_kinematics(xe5, ye5, a1, a2);
 
 %3 Stance Leg
-P2 = [0, 0.75+o2(2)+x(i) ,0.40];
+P2 = P2 + [0 x(i) 0];
 P21 =  P2 + [0, l1*cos(theta2(1)) , -l1*sin(theta2(1))];
 P22 = P2 +[0, 0.2+l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(1)) - l2*sin(theta2(1) + theta2(2))];
 
-P1 = [0, 0+o1(2)+x(i), 0.40];
+P1 = P1 + [0 x(i) 0];
 P11 =  P1 + [0, l1*cos(theta2(1)) , -l1*sin(theta2(1))];
 P12 = P1 +[0, (-0.2/3)+l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(1)) - l2*sin(theta2(1) + theta2(2))];
 
-P4 = [0.45,0.75+o4(2)+x(i),0.40];
+P4 = P4 + [0 x(i) 0];
 P41 =  P4 + [0, l1*cos(theta2(1)) , -l1*sin(theta2(1))];
 P42 = P4 +[0, (-0.2)+l1*cos(theta2(1)) + l2*cos(theta2(1)+theta2(2)) , -l1*sin(theta2(1)) - l2*sin(theta2(1) + theta2(2))];
 
@@ -244,7 +244,7 @@ x_swing = -x(i)-a*cos(t/stride_time*pi);
 y_swing = z - b*sin(t/stride_time*pi);
 [theta3(1), theta3(2)] = inverse_kinematics_swing(x_swing, y_swing, l1, l2); %stance leg
 
-P3 = [0.45,o3(2)+x(i),0.40];
+P3 = P3 + [0 x(i) 0];
 P31 = P3 + [0, l1*cos(theta3(1)) , -l1*sin(theta3(1))];
 P32 = P3 + [0, l1*cos(theta3(1)) + l2*cos(theta3(1)+theta3(2)) , -l1*sin(theta3(1))-l2*sin(theta3(1) + theta3(2))];
 %P5 = [x_swing y_swing]
@@ -273,7 +273,7 @@ P32 = P3 + [0, l1*cos(theta3(1)) + l2*cos(theta3(1)+theta3(2)) , -l1*sin(theta3(
  line12 = line([P4(1) P3(1)],[P4(2) P3(2)],[P4(3) P3(3)] , 'LineWidth',3);
  line13 = line([P3(1) P1(1)],[P3(2) P1(2)],[P3(3) P1(3)] , 'LineWidth',3);
  
- pause(0.2); 
+ pause(0.5);
  %remove previous identifiers
  delete(line2);
  delete(line3);
@@ -289,10 +289,10 @@ P32 = P3 + [0, l1*cos(theta3(1)) + l2*cos(theta3(1)+theta3(2)) , -l1*sin(theta3(
  delete(line13);
  
 if(x(i)>stride_length/2)
-    o1 = o1+ [0 stride_length 0];
-    o2 = o2+ [0 stride_length 0];
-    o3 = o3+ [0 stride_length 0];
-    o4 = o4+ [0 stride_length 0];
+        P1 = P1+ [0 stride_length 0];
+    P2 = P2+ [0 stride_length 0];
+    P3 = P3+ [0 stride_length 0];
+    P4 = P4+ [0 stride_length 0];
     flag =4;
     i=1;
     break;
@@ -314,15 +314,15 @@ x_dot(i) = x_0*sinh(t/Tc)/Tc +x_dot0*cosh(t/Tc);
 %[theta(3) theta(4)] = inverse_kinematics(xe5, ye5, a1, a2);
 
 %3 Stance Leg
-P2 = [0, 0.75+o2(2)+x(i) ,0.40];
+P2 = P2 + [0 x(i) 0];
 P21 =  P2 + [0, l1*cos(theta1(1)) , -l1*sin(theta1(1))];
 P22 = P2 +[0, (0.2/3)+l1*cos(theta1(1)) + l2*cos(theta1(1)+theta1(2)) , -l1*sin(theta1(1)) - l2*sin(theta1(1) + theta1(2))];
 
-P3 = [0.45,o3(2)+x(i),0.40];
+P3 = P3 + [0 x(i) 0];
 P31 =  P3 + [0, l1*cos(theta1(1)) , -l1*sin(theta1(1))];
 P32 = P3 +[0, 0.2+l1*cos(theta1(1)) + l2*cos(theta1(1)+theta1(2)) , -l1*sin(theta1(1)) - l2*sin(theta1(1) + theta1(2))];
 
-P1 = [0, 0+o1(2)+x(i), 0.40];
+P1 = P1 + [0 x(i) 0];
 P11 =  P1 + [0, l1*cos(theta1(1)) , -l1*sin(theta1(1))];
 P12 = P1 +[0, (-0.2/3)+l1*cos(theta1(1)) + l2*cos(theta1(1)+theta1(2)) , -l1*sin(theta1(1)) - l2*sin(theta1(1) + theta1(2))];
 
@@ -331,7 +331,7 @@ x_swing = -x(i)-a*cos(t/stride_time*pi);
 y_swing = z - b*sin(t/stride_time*pi);
 [theta4(1), theta4(2)] = inverse_kinematics_swing(x_swing, y_swing, l1, l2); %stance leg
 
-P4 = [0.45,0.75+o4(2)+x(i),0.40];
+P4 = P4 + [0 x(i) 0];
 P41 = P4 + [0, l1*cos(theta4(1)) , -l1*sin(theta4(1))];
 P42 = P4 + [0, l1*cos(theta4(1)) + l2*cos(theta4(1)+theta4(2)) , -l1*sin(theta4(1))-l2*sin(theta4(1) + theta4(2))];
 %P5 = [x_swing y_swing]
@@ -360,7 +360,7 @@ P42 = P4 + [0, l1*cos(theta4(1)) + l2*cos(theta4(1)+theta4(2)) , -l1*sin(theta4(
  line12 = line([P4(1) P3(1)],[P4(2) P3(2)],[P4(3) P3(3)] , 'LineWidth',3);
  line13 = line([P3(1) P1(1)],[P3(2) P1(2)],[P3(3) P1(3)] , 'LineWidth',3);
  
- pause(0.2);  
+ pause(0.5); 
  %remove previous identifiers
  delete(line2);
  delete(line3);
@@ -376,10 +376,10 @@ P42 = P4 + [0, l1*cos(theta4(1)) + l2*cos(theta4(1)+theta4(2)) , -l1*sin(theta4(
  delete(line13);
  
 if(x(i)>stride_length/2)
-    o1 = o1+ [0 stride_length 0];
-    o2 = o2+ [0 stride_length 0];
-    o3 = o3+ [0 stride_length 0];
-    o4 = o4+ [0 stride_length 0];
+        P1 = P1+ [0 stride_length 0];
+    P2 = P2+ [0 stride_length 0];
+    P3 = P3+ [0 stride_length 0];
+    P4 = P4+ [0 stride_length 0];
     flag =1;
     i=1;
     break;
