@@ -23,7 +23,7 @@ int flag = 0;
 void setup()
 {
   Serial.begin(9600);
-  mySerial2.begin(115200);
+//  mySerial2.begin(115200);
   
   pinMode(2, INPUT_PULLUP);
   pinMode(3, INPUT_PULLUP);
@@ -55,12 +55,12 @@ void loop()
 
   if (flag == 0)
   {
-    if ( mySerial2.available() && mySerial2.read() == 2)
-    {
+//    if ( mySerial2.available() && mySerial2.read() == 2)
+//    {
       for (float t = 0; t < 3.14159 ; t = t + 0.08)
       {
 
-        Serial.println("Reached");
+//        Serial.println("Reached");
         float xe = 24 * cos(t);
         float ye = -40 + 13 * sin(t);
 
@@ -143,14 +143,14 @@ void loop()
         }
       }
 
-      char str[4] = "end2";
-
-      mySerial2.write(str, 4);
-    }
+//      char str[4] = "end2";
+//
+//      mySerial2.write(str, 4);
+    
     //----------------------------------------------------------------------------------------------------------------
 
-    else
-    {
+//    else
+//    {
       for (float t = 0; t < 48 ; t = t + 3)
       {
         float xe = -24 + t;
@@ -236,7 +236,7 @@ void loop()
           analogWrite(motor2pwm, abs(correction2));
         }
       }
-    }
+    
   }
 }
 

@@ -41,8 +41,6 @@ void setup()
 
 }
 
-//------------------------------------------------------------------------------------------
-
 void loop()
 {
 
@@ -60,37 +58,34 @@ void loop()
       for (float t = 0; t < 3.14159 ; t = t + 0.08)
       {
 
-        Serial.println("Reached");
         float xe = 24 * cos(t);
         float ye = -40 + 13 * sin(t);
 
         if ( counter1 != temp1 )
         {
-          temp1 = counter1;
-          if (counter1 > 1200)
-          {
-            counter1 = 0;
-          }
-          theta1c = - (counter1 * 0.3);
+              temp1 = counter1;
+              
+              if (counter1 > 1200)
+              counter1 = 0;
+              
+              theta1c = - (counter1 * 0.3);
         }
+        
         if ( counter2 != temp2 )
         {
-          temp2 = counter2;
-          if (counter2 > 1200)
-          {
-            counter2 = 0;
-          }
-          theta2c = (counter2 * 0.3);
+              temp2 = counter2;
+              
+              if (counter2 > 1200)
+              counter2 = 0;
+              
+              theta2c = (counter2 * 0.3);
         }
 
         if (atan(ye / xe) > 0)
-        {
-          alpha = atan(ye / xe) - PI;
-        }
+        alpha = atan(ye / xe) - PI;
+        
         else
-        {
-          alpha = atan(ye / xe);
-        }
+        alpha = atan(ye / xe);
 
         theta1 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe * xe) + (ye * ye))) + alpha);
         theta2 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe * xe + ye * ye), l1, l2));
@@ -110,44 +105,33 @@ void loop()
         correction1 = map(abs(c1), 0, 150, 0, 100);
         correction2 = map(abs(c2), 0, 250, 0, 100);
 
-//        Serial.println("--------------");
-//        Serial.println(theta1);
-//        Serial.println(theta1c);
-//        Serial.println("--------------");
-//        Serial.println(theta2);
-//        Serial.println(theta2c);
-//        Serial.println("------Corr--------");
-//        Serial.println(c1);
-//        Serial.println(c2);
-
-        if (error1 < 0 )
-        {
-          upr_mtr_fwd();
-          analogWrite(motor1pwm, abs(correction1));
-        }
-        else if (error1 > 0)
-        {
-          upr_mtr_bwd();
-          analogWrite(motor1pwm, abs(correction1));
-        }
-
-        if (error2 < 0)
-        {
-          lwr_mtr_fwd();
-          analogWrite(motor2pwm, abs(correction2));
-        }
-        else if (error2 > 0)
-        {
-          lwr_mtr_bwd();
-          analogWrite(motor2pwm, abs(correction2));
-        }
+          if (error1 < 0 )
+          {
+            upr_mtr_fwd();
+            analogWrite(motor1pwm, abs(correction1));
+          }
+          else if (error1 > 0)
+          {
+            upr_mtr_bwd();
+            analogWrite(motor1pwm, abs(correction1));
+          }
+  
+          if (error2 < 0)
+          {
+            lwr_mtr_fwd();
+            analogWrite(motor2pwm, abs(correction2));
+          }
+          else if (error2 > 0)
+          {
+            lwr_mtr_bwd();
+            analogWrite(motor2pwm, abs(correction2));
+          }
       }
 
       char str[4] = "end4";
 
       mySerial4.write(str, 4);
     }
-    //----------------------------------------------------------------------------------------------------------------
 
     else
     {
@@ -197,22 +181,11 @@ void loop()
         dif_error2 = error2 - prev_error2;
         prev_error2 = error2;
 
-        I += error1;
         c1 = Kp1 * error1 + Kd1 * (dif_error1);
         c2 = Kp2 * error2 + Kd2 * (dif_error2);
 
         correction1 = map(abs(c1), 0, 150, 0, 100);
         correction2 = map(abs(c2), 0, 250, 0, 100);
-
-//        Serial.println("--------------");
-//        Serial.println(theta1);
-//        Serial.println(theta1c);
-//        Serial.println("--------------");
-//        Serial.println(theta2);
-//        Serial.println(theta2c);
-//        Serial.println("------Corr--------");
-//        Serial.println(c1);
-//        Serial.println(c2);
 
         if (error1 < 0 )
         {
@@ -240,6 +213,7 @@ void loop()
   }
 }
 
+//------------------------------------------------------------------------------F U N C T I O N S-----------------------------------------------------------------------------------------
 
 float cosine_rule(float c, float b, float a)
 {
