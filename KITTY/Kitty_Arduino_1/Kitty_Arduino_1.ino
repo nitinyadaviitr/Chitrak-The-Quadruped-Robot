@@ -1,12 +1,12 @@
-#define motor1_1  6
-#define motor2_1  4
-#define motor1pwm_1  10
-#define motor2pwm_1  11
+#define motor1_1  16          //                                                      1-hip        2-knee
+#define motor2_1  14
+#define motor1pwm_1  17
+#define motor2pwm_1  15
 
-#define motor1_2  6
-#define motor2_2  4
-#define motor1pwm_2  10
-#define motor2pwm_2  11
+#define motor1_2  7
+#define motor2_2  5
+#define motor1pwm_2  6
+#define motor2pwm_2  4
 
 #include <SoftwareSerial.h>
 
