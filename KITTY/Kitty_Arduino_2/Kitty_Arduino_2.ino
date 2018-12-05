@@ -1,16 +1,16 @@
-#define motor1_3  6                     //                                1-hip    2-knee
-#define motor2_3  4
-#define motor1pwm_3  7
-#define motor2pwm_3  5
+#define motor1_3  27                     //                                1-hip    2-knee
+#define motor2_3  26
+#define motor1pwm_3  3
+#define motor2pwm_3  2
 
-#define motor1_4  16
-#define motor2_4  14
-#define motor1pwm_4  17
-#define motor2pwm_4  15
+#define motor1_4  28
+#define motor2_4  29
+#define motor1pwm_4  5
+#define motor2pwm_4  4
 
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial4(10, 11); // RX, TX          NEED TO CHANGE PINS
+SoftwareSerial mySerial2(11, 10); // RX, TX          
 
 
 {   // VARIABLES
@@ -34,15 +34,16 @@ volatile int temp2_4 , counter2_4 = 0;
 void setup()
 {
   Serial.begin(9600);
-  mySerial4.begin(115200);
+  mySerial2.begin(115200);
 
-  pinMode(2, INPUT_PULLUP);                                           // NEED TO WRITE FOR LEG 2
-  pinMode(3, INPUT_PULLUP);
-  attachInterrupt(0, ai0_3, RISING);
-  attachInterrupt(1, ai1_3, RISING);
-  pinMode(20, INPUT_PULLUP);
-  pinMode(21, INPUT_PULLUP);
+//  LEG-3
+
+  pinMode(21, INPUT_PULLUP);                                           
+  pinMode(6, INPUT_PULLUP);
   attachInterrupt(2, ai2_3, RISING);
+  
+  pinMode(20, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
   attachInterrupt(3, ai3_3, RISING);
 
   pinMode(motor1_3, OUTPUT);
@@ -50,11 +51,26 @@ void setup()
   pinMode(motor2_3, OUTPUT);
   pinMode(motor2pwm_3, OUTPUT);
 
+  // LEG-4
+  
+  pinMode(19, INPUT_PULLUP);                                           // NEED TO WRITE FOR LEG 2
+  pinMode(8, INPUT_PULLUP);
+  attachInterrupt(4, ai4_4, RISING);
+  
+  pinMode(18, INPUT_PULLUP);
+  pinMode(9, INPUT_PULLUP);
+  attachInterrupt(5, ai5_4, RISING);
+
+  pinMode(motor1_4, OUTPUT);
+  pinMode(motor1pwm_4, OUTPUT);
+  pinMode(motor2_4, OUTPUT);
+  pinMode(motor2pwm_4, OUTPUT);
+
 }
 
 void loop()
 {
-  if ( mySerial4.available() && mySerial4.read() == 4)
+  if ( mySerial2.available() && mySerial2.read() == 4)
   {
     for (float t = 0, u = 0; t < 3.14159, u < 16 ; t = t + 0.08, u = u + 3)
     {
@@ -208,7 +224,7 @@ void loop()
 
     //      char str[4] = "end4";
 
-    //      mySerial4.write(str, 4);
+    //      mySerial2.write(str, 4);
   }
 
   else if()
@@ -365,7 +381,7 @@ void loop()
 
     //      char str[4] = "end4";
 
-    //      mySerial4.write(str, 4);
+    //      mySerial2.write(str, 4);
   }
 }
 
@@ -396,9 +412,9 @@ void loop()
     digitalWrite(motor2_3, LOW);
   }
 
-  void ai0_3()
+  void ai2_3()
   {
-    if (digitalRead(3) == LOW)
+    if (digitalRead(8) == LOW)
     {
       counter1_3++;
     } else {
@@ -406,30 +422,14 @@ void loop()
     }
   }
 
-  void ai1_3() {
-    if (digitalRead(2) == LOW)
-    {
-      counter1_3--;
-    } else {
-      counter1_3++;
-    }
-  }
-
-  void ai2()_3 {
-    if (digitalRead(20) == LOW) {
+  void ai3_3() {
+    if (digitalRead(9) == LOW) {
       counter2_3++;
     } else {
       counter2_3--;
     }
   }
 
-  void ai3()_3 {
-    if (digitalRead(21) == LOW) {
-      counter2_3--;
-    } else {
-      counter2_3++;
-    }
-  }
 
   void upr_mtr_fwd_4()
   {
@@ -451,9 +451,9 @@ void loop()
     digitalWrite(motor2_4, LOW);
   }
 
-  void ai0_4()
+  void ai4_4()
   {
-    if (digitalRead(3) == LOW)
+    if (digitalRead(10) == LOW)
     {
       counter1_4++;
     } else {
@@ -461,28 +461,11 @@ void loop()
     }
   }
 
-  void ai1_4() {
-    if (digitalRead(2) == LOW)
-    {
-      counter1_4--;
-    } else {
-      counter1_4++;
-    }
-  }
-
-  void ai2()_4 {
-    if (digitalRead(20) == LOW) {
+  void ai5_4() {
+    if (digitalRead(11) == LOW) {
       counter2_4++;
     } else {
       counter2_4--;
-    }
-  }
-
-  void ai3()_4 {
-    if (digitalRead(21) == LOW) {
-      counter2_4--;
-    } else {
-      counter2_4++;
     }
   }
 }

@@ -1,19 +1,19 @@
 leg1
 
-Enco=====Hip=====19,input-10
-Enco=====Knee=====18,input-11
+Enco=====Hip=====21,input-6
+Enco=====Knee=====20,input-7
 
 leg2
 
-Enco=====Hip=====20,input-9
-Enco=====Knee=====21,input-8
+Enco=====Hip=====18,input-8
+Enco=====Knee=====19,input-9
 
 leg3
 
-Enco=====Hip=====20,input-8
-Enco=====Knee=====18,input-9
+Enco=====Hip=====21,input-6
+Enco=====Knee=====20,input-7
 
 leg4
 
-Enco=====Hip=====21,input-10
-Enco=====Knee=====19,input-11
+Enco=====Hip=====19,input-8
+Enco=====Knee=====18,input-9
