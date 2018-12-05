@@ -5,7 +5,7 @@ l1 = 26; l2 = 25;
 a = 20; b = 10;
 
 axis(gca, 'equal');
-axis([-50 50 -50 50]);
+axis([-100 100 -100 100]);
 grid on;
 
 w = 0.1;
@@ -81,7 +81,7 @@ syms theta1;
     %vel = inv(J)*[-sin(t)*a; cos(t)*b];
     
     %Update Interval;
-    pause(0.01);
+    pause(5);
     %remove previous identifiers
     delete(line2);
     delete(line3);

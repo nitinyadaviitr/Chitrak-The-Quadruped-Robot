@@ -1,0 +1,4 @@
+1. We are using 2 Arduino-Mega2560 so we need to use 1 attach_interrupt() pins instead of two for each encoder as Arduino Mega has 6 attach interrupts so we need atleast 2 Arduino to use 8 encoders.
+2. In arduino mega, when we were using Tx-Rx pins(14-19) for writing analog value and direction into the motor driver, code was uploading but on giving the command to move the leg, no movement was observed. So we used digital pins(22-)for direction and only the PWM pins for writing the analog value, it worked properly.
+3. For attach interrupt, we were using digitaltointerrupt() command for using interrupts and it did not work in mega but worked in uno. So we inserted manually the iterrupt pin number in Arduino-Mega from arduino website and it started working.
+4. Encoder PPM value will be different to calculate angle when you are using one interrupt pin instead of two.
