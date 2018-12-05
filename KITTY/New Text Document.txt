@@ -17,3 +17,8 @@ leg4
 
 Enco=====Hip=====19,input-8
 Enco=====Knee=====18,input-9
+
+
+
+theta1 starting=====-39.94
+theta2 starting=====-66.72

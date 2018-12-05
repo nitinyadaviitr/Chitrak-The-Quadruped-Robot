@@ -1,4 +1,4 @@
-#define motor1_3  27                     //                                1-hip    2-knee
+#define motor1_3  27                 
 #define motor2_3  26
 #define motor1pwm_3  3
 #define motor2pwm_3  2
@@ -13,23 +13,22 @@
 SoftwareSerial mySerial2(11, 10); // RX, TX          
 
 
-{   // VARIABLES
 float w = 0.1, alpha_3, theta1c_3 = 0.0 , theta2c_3 = 0.0, theta1_3, theta2_3, error1_3, error2_3, correction1_3, correction2_3, c1_3, c2_3;
 float dif_error1_3 , prev_error1_3 = 0.0 , dif_error2_3 , prev_error2_3 = 0.0;
 
-float w = 0.1, alpha_4, theta1c_4 = 0.0 , theta2c_4 = 0.0, theta1_4, theta2_4, error1_4, error2_4, correction1_4, correction2_4, c1_4, c2_4;
+float alpha_4, theta1c_4 = 0.0 , theta2c_4 = 0.0, theta1_4, theta2_4, error1_4, error2_4, correction1_4, correction2_4, c1_4, c2_4;
 float dif_error1_4 , prev_error1_4 = 0.0 , dif_error2_4 , prev_error2_4 = 0.0;
 
 float Kp1 = 4.5, Kp2 = 4.5, Kd1 = 0.8, Kd2 = 0.8 ;
 
-int l1 = 26, l2 = 22, a = 20, b = 7;
+int l1 = 25, l2 = 25, a = 20, b = 7;
 
 volatile int temp1_3 , counter1_3 = 0;
 volatile int temp2_3 , counter2_3 = 0;
 
 volatile int temp1_4 , counter1_4 = 0;
 volatile int temp2_4 , counter2_4 = 0;
-}
+
 
 void setup()
 {
@@ -70,13 +69,13 @@ void setup()
 
 void loop()
 {
-  if ( mySerial2.available() && mySerial2.read() == 4)
-  {
+//  if ( mySerial2.available() && mySerial2.read() == 4)
+//  {
     for (float t = 0, u = 0; t < 3.14159, u < 16 ; t = t + 0.08, u = u + 3)
     {
 
-      float xe_3 = 24 * cos(t);
-      float ye_3 = -40 + 13 * sin(t);
+      float xe_3 = 12 * cos(t);
+      float ye_3 = -40 + 4 * sin(t);
 
       float xe_4 = 8 + u ;
       float ye_4 = -40 ;
@@ -85,44 +84,44 @@ void loop()
       {
         temp1_3 = counter1_3;
 
-        if (counter1_3 > 1200)
+        if (counter1_3 > 600)
           counter1_3 = 0;
 
-        theta1c_3 = - (counter1_3 * 0.3);
+        theta1c_3 = (counter1_3 * 0.6);
       }
 
       if ( counter2_3 != temp2_3 )
       {
         temp2_3 = counter2_3;
 
-        if (counter2_3 > 1200)
+        if (counter2_3 > 600)
           counter2_3 = 0;
 
-        theta2c_3 = (counter2_3 * 0.3);
+        theta2c_3 = -(counter2_3 * 0.6);
       }
 
       if ( counter1_4 != temp1_4 )
       {
         temp1_4 = counter1_4;
 
-        if (counter1_4 > 1200)
+        if (counter1_4 > 600)
           counter1_4 = 0;
 
-        theta1c_4 = - (counter1_4 * 0.3);
+        theta1c_4 = (counter1_4 * 0.6);
       }
 
       if ( counter2_4 != temp2_4 )
       {
         temp2_4 = counter2_4;
 
-        if (counter2_4 > 1200)
+        if (counter2_4 > 600)
           counter2_4 = 0;
 
-        theta2c_4 = (counter2_4 * 0.3);
+        theta2c_4 = (counter2_4 * 0.6);
       }
 
 
-      { //   CALCULATE ALPHA
+     
         if (atan(ye_3 / xe_3) > 0)
           alpha_3 = atan(ye_3 / xe_3) - PI;
 
@@ -134,14 +133,14 @@ void loop()
 
         else
           alpha_4 = atan(ye_4 / xe_4);
-      }
+      
 
 
-      { //   CALCULATE CORRECTION
+     
         theta1_3 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_3 * xe_3) + (ye_3 * ye_3))) + alpha_3);
         theta2_3 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_3 * xe_3 + ye_3 * ye_3), l1, l2));
 
-        error1_3 = theta1_3 - theta1c_3 + 45;
+        error1_3 = theta1_3 - theta1c_3 + 26;
         error2_3 = theta2_3 - theta2c_3;
 
         dif_error1_3 = error1_3 - prev_error1_3;
@@ -153,27 +152,41 @@ void loop()
         c2_3 = Kp2 * error2_3 + Kd2 * (dif_error2_3);
 
         correction1_3 = map(abs(c1_3), 0, 150, 0, 100);
-        correction2_3 = map(abs(c2_3), 0, 250, 0, 100);
+        correction2_3 = map(abs(c2_3), 0, 250, 0, 150);
 
-        theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
-        theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
+        Serial.print("theta1_1=");
+        Serial.println(theta1_3);
+        Serial.print("theta1c_1=");
+        Serial.println(theta1c_3);
+        Serial.print("theta2_1=");
+        Serial.println(theta2_3);
+        Serial.print("theta2c_1=");
+        Serial.println(theta2c_3);
+        Serial.println("------------------------");
+        Serial.print("c1_3=");
+        Serial.println(c1_3);
+        Serial.print("c2_3=");
+        Serial.println(c2_3);
 
-        error1_4 = theta1_4 - theta1c_4 + 45;
-        error2_4 = theta2_4 - theta2c_4;
+//        theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
+//        theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
+//
+//        error1_4 = theta1_4 - theta1c_4 + 20;
+//        error2_4 = theta2_4 - theta2c_4;
+//
+//        dif_error1_4 = error1_4 - prev_error1_4;
+//        prev_error1_4 = error1_4;
+//        dif_error2_4 = error2_4 - prev_error2_4;
+//        prev_error2_4 = error2_4;
+//
+//        c1_4 = Kp1 * error1_4 + Kd1 * (dif_error1_4);
+//        c2_4 = Kp2 * error2_4 + Kd2 * (dif_error2_4);
+//
+//        correction1_4 = map(abs(c1_4), 0, 150, 0, 100);
+//        correction2_4 = map(abs(c2_4), 0, 250, 0, 100);
+      
 
-        dif_error1_4 = error1_4 - prev_error1_4;
-        prev_error1_4 = error1_4;
-        dif_error2_4 = error2_4 - prev_error2_4;
-        prev_error2_4 = error2_4;
-
-        c1_4 = Kp1 * error1_4 + Kd1 * (dif_error1_4);
-        c2_4 = Kp2 * error2_4 + Kd2 * (dif_error2_4);
-
-        correction1_4 = map(abs(c1_4), 0, 150, 0, 100);
-        correction2_4 = map(abs(c2_4), 0, 250, 0, 100);
-      }
-
-      { //   ACTUATE
+   
         if (error1_3 < 0 )
         {
           upr_mtr_fwd_3();
@@ -220,172 +233,168 @@ void loop()
       }
 
 
-    }
-
-    //      char str[4] = "end4";
-
-    //      mySerial2.write(str, 4);
-  }
-
-  else if()
-  {
-    for (float t = 0, u = 0; t < 3.14159, u < 16 ; t = t + 0.08, u = u + 3)
-    {
-
-      float xe_4 = 24 * cos(t);
-      float ye_4 = -40 + 13 * sin(t);
-
-      float xe_3 = -24 + u ;
-      float ye_3 = -40 ;
-
-      if ( counter1_3 != temp1_3 )
-      {
-        temp1_3 = counter1_3;
-
-        if (counter1_3 > 1200)
-          counter1_3 = 0;
-
-        theta1c_3 = - (counter1_3 * 0.3);
-      }
-
-      if ( counter2_3 != temp2_3 )
-      {
-        temp2_3 = counter2_3;
-
-        if (counter2_3 > 1200)
-          counter2_3 = 0;
-
-        theta2c_3 = (counter2_3 * 0.3);
-      }
-
-      if ( counter1_4 != temp1_4 )
-      {
-        temp1_4 = counter1_4;
-
-        if (counter1_4 > 1200)
-          counter1_4 = 0;
-
-        theta1c_4 = - (counter1_4 * 0.3);
-      }
-
-      if ( counter2_4 != temp2_4 )
-      {
-        temp2_4 = counter2_4;
-
-        if (counter2_4 > 1200)
-          counter2_4 = 0;
-
-        theta2c_4 = (counter2_4 * 0.3);
-      }
+    
 
 
-      { //   CALCULATE ALPHA
-        if (atan(ye_3 / xe_3) > 0)
-          alpha_3 = atan(ye_3 / xe_3) - PI;
+  
 
-        else
-          alpha_3 = atan(ye_3 / xe_3);
-
-        if (atan(ye_4 / xe_4) > 0)
-          alpha_4 = atan(ye_4 / xe_4) - PI;
-
-        else
-          alpha_4 = atan(ye_4 / xe_4);
-      }
-
-
-      { //   CALCULATE CORRECTION
-        theta1_3 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_3 * xe_3) + (ye_3 * ye_3))) + alpha_3);
-        theta2_3 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_3 * xe_3 + ye_3 * ye_3), l1, l2));
-
-        error1_3 = theta1_3 - theta1c_3 + 45;
-        error2_3 = theta2_3 - theta2c_3;
-
-        dif_error1_3 = error1_3 - prev_error1_3;
-        prev_error1_3 = error1_3;
-        dif_error2_3 = error2_3 - prev_error2_3;
-        prev_error2_3 = error2_3;
-
-        c1_3 = Kp1 * error1_3 + Kd1 * (dif_error1_3);
-        c2_3 = Kp2 * error2_3 + Kd2 * (dif_error2_3);
-
-        correction1_3 = map(abs(c1_3), 0, 150, 0, 100);
-        correction2_3 = map(abs(c2_3), 0, 250, 0, 100);
-
-        theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
-        theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
-
-        error1_4 = theta1_4 - theta1c_4 + 45;
-        error2_4 = theta2_4 - theta2c_4;
-
-        dif_error1_4 = error1_4 - prev_error1_4;
-        prev_error1_4 = error1_4;
-        dif_error2_4 = error2_4 - prev_error2_4;
-        prev_error2_4 = error2_4;
-
-        c1_4 = Kp1 * error1_4 + Kd1 * (dif_error1_4);
-        c2_4 = Kp2 * error2_4 + Kd2 * (dif_error2_4);
-
-        correction1_4 = map(abs(c1_4), 0, 150, 0, 100);
-        correction2_4 = map(abs(c2_4), 0, 250, 0, 100);
-      }
-
-      { //   ACTUATE
-        if (error1_3 < 0 )
-        {
-          upr_mtr_fwd_3();
-          analogWrite(motor1pwm_3, abs(correction1_3));
-        }
-        else if (error1_3 > 0)
-        {
-          upr_mtr_bwd_3();
-          analogWrite(motor1pwm_3, abs(correction1_3));
-        }
-
-        if (error2_3 < 0)
-        {
-          lwr_mtr_fwd_3();
-          analogWrite(motor2pwm_3, abs(correction2_3));
-        }
-        else if (error2_3 > 0)
-        {
-          lwr_mtr_bwd_3();
-          analogWrite(motor2pwm_3, abs(correction2_3));
-        }
-
-        if (error1_4 < 0 )
-        {
-          upr_mtr_fwd_4();
-          analogWrite(motor1pwm_4, abs(correction1_4));
-        }
-        else if (error1_4 > 0)
-        {
-          upr_mtr_bwd_4();
-          analogWrite(motor1pwm_4, abs(correction1_4));
-        }
-
-        if (error2_4 < 0)
-        {
-          lwr_mtr_fwd_4();
-          analogWrite(motor2pwm_4, abs(correction2_4));
-        }
-        else if (error2_4 > 0)
-        {
-          lwr_mtr_bwd_4();
-          analogWrite(motor2pwm_4, abs(correction2_4));
-        }
-      }
-
-
-    }
-
-    //      char str[4] = "end4";
-
-    //      mySerial2.write(str, 4);
-  }
+//    for (float t = 0, u = 0; t < 3.14159, u < 16 ; t = t + 0.08, u = u + 3)
+//    {
+//
+//      float xe_4 = 24 * cos(t);
+//      float ye_4 = -40 + 13 * sin(t);
+//
+//      float xe_3 = -24 + u ;
+//      float ye_3 = -40 ;
+//
+//      if ( counter1_3 != temp1_3 )
+//      {
+//        temp1_3 = counter1_3;
+//
+//        if (counter1_3 > 600)
+//          counter1_3 = 0;
+//
+//        theta1c_3 = - (counter1_3 * 0.6);
+//      }
+//
+//      if ( counter2_3 != temp2_3 )
+//      {
+//        temp2_3 = counter2_3;
+//
+//        if (counter2_3 > 600)
+//          counter2_3 = 0;
+//
+//        theta2c_3 = (counter2_3 * 0.6);
+//      }
+//
+//      if ( counter1_4 != temp1_4 )
+//      {
+//        temp1_4 = counter1_4;
+//
+//        if (counter1_4 > 600)
+//          counter1_4 = 0;
+//
+//        theta1c_4 = - (counter1_4 * 0.6);
+//      }
+//
+//      if ( counter2_4 != temp2_4 )
+//      {
+//        temp2_4 = counter2_4;
+//
+//        if (counter2_4 > 600)
+//          counter2_4 = 0;
+//
+//        theta2c_4 = (counter2_4 * 0.6);
+//      }
+//
+//
+//      { //   CALCULATE ALPHA
+//        if (atan(ye_3 / xe_3) > 0)
+//          alpha_3 = atan(ye_3 / xe_3) - PI;
+//
+//        else
+//          alpha_3 = atan(ye_3 / xe_3);
+//
+//        if (atan(ye_4 / xe_4) > 0)
+//          alpha_4 = atan(ye_4 / xe_4) - PI;
+//
+//        else
+//          alpha_4 = atan(ye_4 / xe_4);
+//      }
+//
+//
+//      { //   CALCULATE CORRECTION
+//        theta1_3 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_3 * xe_3) + (ye_3 * ye_3))) + alpha_3);
+//        theta2_3 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_3 * xe_3 + ye_3 * ye_3), l1, l2));
+//
+//        error1_3 = theta1_3 - theta1c_3 + 45;
+//        error2_3 = theta2_3 - theta2c_3;
+//
+//        dif_error1_3 = error1_3 - prev_error1_3;
+//        prev_error1_3 = error1_3;
+//        dif_error2_3 = error2_3 - prev_error2_3;
+//        prev_error2_3 = error2_3;
+//
+//        c1_3 = Kp1 * error1_3 + Kd1 * (dif_error1_3);
+//        c2_3 = Kp2 * error2_3 + Kd2 * (dif_error2_3);
+//
+//        correction1_3 = map(abs(c1_3), 0, 150, 0, 100);
+//        correction2_3 = map(abs(c2_3), 0, 250, 0, 100);
+//
+//        theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
+//        theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
+//
+//        error1_4 = theta1_4 - theta1c_4 + 45;
+//        error2_4 = theta2_4 - theta2c_4;
+//
+//        dif_error1_4 = error1_4 - prev_error1_4;
+//        prev_error1_4 = error1_4;
+//        dif_error2_4 = error2_4 - prev_error2_4;
+//        prev_error2_4 = error2_4;
+//
+//        c1_4 = Kp1 * error1_4 + Kd1 * (dif_error1_4);
+//        c2_4 = Kp2 * error2_4 + Kd2 * (dif_error2_4);
+//
+//        correction1_4 = map(abs(c1_4), 0, 150, 0, 100);
+//        correction2_4 = map(abs(c2_4), 0, 250, 0, 100);
+//      }
+//
+//      { //   ACTUATE
+//        if (error1_3 < 0 )
+//        {
+//          upr_mtr_fwd_3();
+//          analogWrite(motor1pwm_3, abs(correction1_3));
+//        }
+//        else if (error1_3 > 0)
+//        {
+//          upr_mtr_bwd_3();
+//          analogWrite(motor1pwm_3, abs(correction1_3));
+//        }
+//
+//        if (error2_3 < 0)
+//        {
+//          lwr_mtr_fwd_3();
+//          analogWrite(motor2pwm_3, abs(correction2_3));
+//        }
+//        else if (error2_3 > 0)
+//        {
+//          lwr_mtr_bwd_3();
+//          analogWrite(motor2pwm_3, abs(correction2_3));
+//        }
+//
+//        if (error1_4 < 0 )
+//        {
+//          upr_mtr_fwd_4();
+//          analogWrite(motor1pwm_4, abs(correction1_4));
+//        }
+//        else if (error1_4 > 0)
+//        {
+//          upr_mtr_bwd_4();
+//          analogWrite(motor1pwm_4, abs(correction1_4));
+//        }
+//
+//        if (error2_4 < 0)
+//        {
+//          lwr_mtr_fwd_4();
+//          analogWrite(motor2pwm_4, abs(correction2_4));
+//        }
+//        else if (error2_4 > 0)
+//        {
+//          lwr_mtr_bwd_4();
+//          analogWrite(motor2pwm_4, abs(correction2_4));
+//        }
+//      }
+//
+//
+//    }
+//
+//    //      char str[4] = "end4";
+//
+//    //      mySerial2.write(str, 4);
+//  }
 }
 
-{ //FUNCTIONS
+
   float cosine_rule(float c, float b, float a)
   {
     float x = ( a * a + b * b - c * c ) / ( 2 * a * b );
@@ -414,7 +423,7 @@ void loop()
 
   void ai2_3()
   {
-    if (digitalRead(8) == LOW)
+    if (digitalRead(6) == LOW)
     {
       counter1_3++;
     } else {
@@ -423,7 +432,7 @@ void loop()
   }
 
   void ai3_3() {
-    if (digitalRead(9) == LOW) {
+    if (digitalRead(7) == LOW) {
       counter2_3++;
     } else {
       counter2_3--;
@@ -453,7 +462,7 @@ void loop()
 
   void ai4_4()
   {
-    if (digitalRead(10) == LOW)
+    if (digitalRead(8) == LOW)
     {
       counter1_4++;
     } else {
@@ -462,10 +471,10 @@ void loop()
   }
 
   void ai5_4() {
-    if (digitalRead(11) == LOW) {
+    if (digitalRead(9) == LOW) {
       counter2_4++;
     } else {
       counter2_4--;
     }
   }
-}
+
