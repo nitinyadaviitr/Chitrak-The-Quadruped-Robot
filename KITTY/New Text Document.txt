@@ -20,5 +20,8 @@ Enco=====Knee=====18,input-9
 
 
 
-theta1 starting=====-39.94
+theta1 starting=====-39.94 (12,-40)
+theta2 starting=====-66.72
+
+theta1 starting=====-73.34 (-12,-40)
 theta2 starting=====-66.72

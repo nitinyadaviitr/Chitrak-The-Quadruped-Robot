@@ -10,8 +10,9 @@
 
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial1(10, 11); // RX, TX          NEED TO CHANGE PINS
+SoftwareSerial mySerial1(10, 11); // RX, TX          
 
+int h=1,aa=2;
 
 double alpha_1;
 float w = 0.1, theta1c_1 = 0.0 , theta2c_1 = 0.0, theta1_1, theta2_1, error1_1, error2_1, correction1_1, correction2_1, c1_1, c2_1;
@@ -35,7 +36,7 @@ volatile int temp2_2 , counter2_2 = 0;
 void setup()
 {
   Serial.begin(9600);
-  mySerial1.begin(115200);
+  mySerial1.begin(9600);
 
 //Leg1
   pinMode(21, INPUT_PULLUP);                                           
@@ -72,7 +73,9 @@ void setup()
 void loop()
 {
 
-    for (float t = 0, u = 0; t < 3.14159, u < 16 ; t = t + 0.1, u = u + 0.41)
+    if(h==1 || mySerial1.read()==1)
+    {
+    for (float t = 0; t < 3.14159; t = t + 0.3)
     {
 
       float xe_1 = 12 * cos(t);
@@ -103,7 +106,7 @@ void loop()
         theta2c_1 = (counter2_1 * 0.6);
       }
 
-//      if ( counter1_2 != temp1_2 )
+//      if ( counter1_2 != temp1_2 )  
 //      {
 //        temp1_2 = counter1_2;
 //
@@ -163,7 +166,7 @@ void loop()
         prev_error1_1 = error1_1;
         prev_error2_1 = error2_1;
 
-        correction1_1 = map(abs(c1_1), 0, 20, 0, 40);
+        correction1_1 = map(abs(c1_1), 0, 30, 0, 40);
         correction2_1 = map(abs(c2_1), 0, 40, 0, 60);
 
         Serial.print("x=");
@@ -252,13 +255,13 @@ void loop()
      
     }
 
-    for (float u = 0; u < 24 ; u = u + 1.8)
+    for (float u = 0; u < 25 ; u = u + 2.4)
     {
 
 //      float xe_1 = 12 * cos(t);
 //      float ye_1 = -40 + 10*sin(t);
 
-      float xe_1 = -12 + u ;
+      float xe_1 = -12 + 0.833*u ;
       float ye_1 = -40 ;
 
       if ( counter1_1 != temp1_1 )
@@ -343,7 +346,7 @@ void loop()
         prev_error1_1 = error1_1;
         prev_error2_1 = error2_1;
 
-        correction1_1 = map(abs(c1_1), 0, 20, 0, 40);
+        correction1_1 = map(abs(c1_1), 0, 30, 0, 50);
         correction2_1 = map(abs(c2_1), 0, 40, 0, 60);
 
         Serial.print("x=");
@@ -408,6 +411,9 @@ void loop()
           analogWrite(motor2pwm_1, abs(correction2_1));
         }
 
+        
+        
+
 //        if (error1_2 < 0 )
 //        {
 //          upr_mtr_fwd_2();
@@ -431,6 +437,8 @@ void loop()
 //        }
      
     }
+    analogWrite(motor1pwm_1, 0);
+    analogWrite(motor2pwm_1, 0);
 
 //    for (float t = 0, u = 0; t < 3.14159, u < 16 ; t = t + 0.08, u = u + 0.41)
 //    {
@@ -594,7 +602,15 @@ void loop()
 //
 //    }
 ////  }
+while(mySerial1.read()!=1)
+{
+mySerial1.write(aa);
+Serial.println("Send");
 }
+h=2;
+}
+}
+
 
   float cosine_rule(float c, float b, float a)
   {

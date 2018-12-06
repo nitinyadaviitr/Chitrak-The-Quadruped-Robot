@@ -39,7 +39,7 @@ void loop() {
         if(x==1)
         analogWrite(motor1pwm , 60);
         else
-        analogWrite(motor1pwm , 30);
+        analogWrite(motor1pwm , 50);
         
       }
       if(x == 3 || (-theta1c+26)>39.94){
@@ -48,7 +48,7 @@ void loop() {
         }
       if(x>3 && x<6){
         digitalWrite(motor2, x - 4 );
-        analogWrite(motor2pwm , 30);
+        analogWrite(motor2pwm , 50);
         }
       if(x == 6 || (-theta2c/4)>66.72){
         analogWrite(motor2pwm , 0);
@@ -72,7 +72,7 @@ void loop() {
           counter2 = 0;
         }
         theta2c = -(counter2 * 0.6);
-        Serial.println (theta2c);
+        Serial.println (theta2c/4);
       }
 }
 

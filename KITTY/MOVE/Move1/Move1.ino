@@ -9,7 +9,7 @@ int x;
 volatile int temp1, counter1 = 0;
 volatile int temp2 , counter2 = 0;
 
-void setup() {
+void setup() { 
   Serial.begin(9600);
   //Pins for encoders
   pinMode(21, INPUT_PULLUP);                                          
@@ -41,7 +41,7 @@ void loop() {
         if(x==1)
         analogWrite(motor1pwm , 60);
         else
-        analogWrite(motor1pwm , 30);
+        analogWrite(motor1pwm , 50);
         
       }
       if(x == 3 || (-theta1c+26)>39.94){
@@ -50,7 +50,7 @@ void loop() {
         }
       if(x>3 && x<6){
         digitalWrite(motor2, x - 4 );
-        analogWrite(motor2pwm , 30);
+        analogWrite(motor2pwm , 50);
         }
       if(x == 6 || (-theta2c/4)>66.72){
         analogWrite(motor2pwm , 0);
