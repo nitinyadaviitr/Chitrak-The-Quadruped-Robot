@@ -70,8 +70,6 @@ void setup()
 
 void loop()
 {
-    if(mySerial.read()==2)
-    {
     for (float u = 0; u < 16.1 ; u = u + 0.8)
     {
 
@@ -141,8 +139,8 @@ void loop()
         theta1_3 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_3 * xe_3) + (ye_3 * ye_3))) + alpha_3);
         theta2_3 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_3 * xe_3 + ye_3 * ye_3), l1, l2));
 
-        error1_3 = theta1_3 - theta1c_3 +26;        // Change acc to start
-        error2_3 = theta2_3 - theta2c_3;            // Change acc to start
+        error1_3 = theta1_3 - theta1c_3 + 59.22;        
+        error2_3 = theta2_3 - theta2c_3/4 + 72.97;           
 
         dif_error1_3 = error1_3 - prev_error1_3;
         prev_error1_3 = error1_3;
@@ -172,8 +170,8 @@ void loop()
         theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
         theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
 
-        error1_4 = theta1_4 - theta1c_4 + 20;         // Change acc to start
-        error2_4 = theta2_4 - theta2c_4;              // Change acc to start
+        error1_4 = theta1_4 - theta1c_4 + 73.34;         
+        error2_4 = theta2_4 - theta2c_4/4 + 66.72;              
 
         dif_error1_4 = error1_4 - prev_error1_4;
         prev_error1_4 = error1_4;
@@ -302,8 +300,8 @@ void loop()
         theta1_3 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_3 * xe_3) + (ye_3 * ye_3))) + alpha_3);
         theta2_3 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_3 * xe_3 + ye_3 * ye_3), l1, l2));
 
-        error1_3 = theta1_3 - theta1c_3 +26;        // Change acc to start
-        error2_3 = theta2_3 - theta2c_3;            // Change acc to start
+        error1_3 = theta1_3 - theta1c_3 + 59.22;       
+        error2_3 = theta2_3 - theta2c_3/4 + 72.97;        
 
         dif_error1_3 = error1_3 - prev_error1_3;
         prev_error1_3 = error1_3;
@@ -333,8 +331,8 @@ void loop()
         theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
         theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
 
-        error1_4 = theta1_4 - theta1c_4 + 20;         // Change acc to start
-        error2_4 = theta2_4 - theta2c_4;              // Change acc to start
+        error1_4 = theta1_4 - theta1c_4 + 73.34;        
+        error2_4 = theta2_4 - theta2c_4/4 + 66.72;            
 
         dif_error1_4 = error1_4 - prev_error1_4;
         prev_error1_4 = error1_4;
@@ -349,11 +347,11 @@ void loop()
       
 
    
-        if (error1_3 < 0 )
-        {
+        if (error1_3 < 0 ){
           upr_mtr_fwd_3();
           analogWrite(motor1pwm_3, abs(correction1_3));
         }
+        
         else if (error1_3 > 0)
         {
           upr_mtr_bwd_3();
@@ -400,7 +398,7 @@ void loop()
       float xe_4 = 12 * cos(t);
       float ye_4 = -40 + 8 * sin(t);
 
-      float xe_3 = -12 + 2.5*u ;
+      float xe_3 = -12 + 2.5 * u ;
       float ye_3 = -40 ;
 
       if ( counter1_3 != temp1_3 )
@@ -463,8 +461,8 @@ void loop()
         theta1_3 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_3 * xe_3) + (ye_3 * ye_3))) + alpha_3);
         theta2_3 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_3 * xe_3 + ye_3 * ye_3), l1, l2));
 
-        error1_3 = theta1_3 - theta1c_3 +26;        // Change acc to start
-        error2_3 = theta2_3 - theta2c_3;            // Change acc to start
+        error1_3 = theta1_3 - theta1c_3 + 59.22;        
+        error2_3 = theta2_3 - theta2c_3/4 + 72.97;            
 
         dif_error1_3 = error1_3 - prev_error1_3;
         prev_error1_3 = error1_3;
@@ -494,8 +492,8 @@ void loop()
         theta1_4 = 57.2958 * (cosine_rule(l2, l1, sqrt((xe_4 * xe_4) + (ye_4 * ye_4))) + alpha_4);
         theta2_4 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_4 * xe_4 + ye_4 * ye_4), l1, l2));
 
-        error1_4 = theta1_4 - theta1c_4 + 20;         // Change acc to start
-        error2_4 = theta2_4 - theta2c_4;              // Change acc to start
+        error1_4 = theta1_4 - theta1c_4 + 73.34;         
+        error2_4 = theta2_4 - theta2c_4/4 + 66.72;              
 
         dif_error1_4 = error1_4 - prev_error1_4;
         prev_error1_4 = error1_4;
@@ -555,39 +553,30 @@ void loop()
         }
     }
 
-    // call arduino 1
-    }
-    }
 }
 
-  float cosine_rule(float c, float b, float a)
-  {
+  float cosine_rule(float c, float b, float a){
     float x = ( a * a + b * b - c * c ) / ( 2 * a * b );
     return acos(x);
   }
 
-  void upr_mtr_fwd_3()
-  {
+  void upr_mtr_fwd_3(){
     digitalWrite(motor1_3, HIGH);
   }
 
-  void upr_mtr_bwd_3()
-  {
+  void upr_mtr_bwd_3(){
     digitalWrite(motor1_3, LOW);
   }
 
-  void lwr_mtr_fwd_3()
-  {
+  void lwr_mtr_fwd_3(){
     digitalWrite(motor2_3, HIGH);
   }
 
-  void lwr_mtr_bwd_3()
-  {
+  void lwr_mtr_bwd_3(){
     digitalWrite(motor2_3, LOW);
   }
 
-  void ai2_3()
-  {
+  void ai2_3(){
     if (digitalRead(6) == LOW)
     {
       counter1_3++;
@@ -597,36 +586,30 @@ void loop()
   }
 
   void ai3_3() {
-    if (digitalRead(7) == LOW) {
+  if (digitalRead(7) == LOW) {
       counter2_3++;
     } else {
       counter2_3--;
     }
   }
 
-
-  void upr_mtr_fwd_4()
-  {
+  void upr_mtr_fwd_4(){
     digitalWrite(motor1_4, HIGH);
   }
 
-  void upr_mtr_bwd_4()
-  {
+  void upr_mtr_bwd_4(){
     digitalWrite(motor1_4, LOW);
   }
 
-  void lwr_mtr_fwd_4()
-  {
+  void lwr_mtr_fwd_4(){
     digitalWrite(motor2_4, HIGH);
   }
 
-  void lwr_mtr_bwd_4()
-  {
+  void lwr_mtr_bwd_4(){
     digitalWrite(motor2_4, LOW);
   }
 
-  void ai4_4()
-  {
+  void ai4_4(){
     if (digitalRead(8) == LOW)
     {
       counter1_4++;
@@ -636,7 +619,7 @@ void loop()
   }
 
   void ai5_4() {
-    if (digitalRead(9) == LOW) {
+  if (digitalRead(9) == LOW) {
       counter2_4++;
     } else {
       counter2_4--;

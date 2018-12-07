@@ -11,14 +11,14 @@ volatile int temp2 , counter2 = 0;
 void setup() {
   Serial.begin(9600);
   //Pins for encoders
-  pinMode(18, INPUT_PULLUP);                                           
-  pinMode(8, INPUT_PULLUP);
-  attachInterrupt(5, ai5_2, RISING);
-
-  
-  pinMode(19, INPUT_PULLUP);
+  pinMode(19, INPUT_PULLUP);                                           
   pinMode(9, INPUT_PULLUP);
   attachInterrupt(4, ai4_2, RISING);
+
+  
+  pinMode(18, INPUT_PULLUP);
+  pinMode(8, INPUT_PULLUP);
+  attachInterrupt(5, ai5_2, RISING);
 
   //Pins for Motors
   pinMode(motor1, OUTPUT);
@@ -40,17 +40,17 @@ void loop() {
         if(x==1)
         analogWrite(motor1pwm , 60);
         else
-        analogWrite(motor1pwm , 30);
+        analogWrite(motor1pwm , 50);
       }
-      else if(x == 3 || (-theta1c+26)>39.94){
+      if(x == 3 || (-theta1c+26)>47.8){
         analogWrite(motor1pwm , 0);
         x=3;
         }
-      else if(x>3 && x<6){
+      if(x>3 && x<6){
         digitalWrite(motor2, x - 4 );
         analogWrite(motor2pwm , 50);
         }
-      else if(x == 6 || (-theta2c/4)>66.72){
+      if(x == 6 || (-theta2c/4)>72.97){
         analogWrite(motor2pwm , 0);
         x=6;
         }
@@ -64,21 +64,23 @@ void loop() {
           counter1 = 0;
          }
         theta1c = (counter1 * 0.6);
-        Serial.println (theta1c);
+//        Serial.println("theta1c");
+        Serial.println(theta1c);
      }
       if ( counter2 != temp2 ) {
         temp2 = counter2;
         if (counter2 > 600) {
           counter2 = 0;
         }
-        theta2c = (counter2 * 0.6);
+        theta2c = -(counter2 * 0.6);
+//        Serial.println("theta2c");
         Serial.println(theta2c/4);
       }
 }
 
 // Encoder1
-void ai5_2() {
-  if (digitalRead(8) == LOW) {
+void ai4_2() {
+  if (digitalRead(9) == LOW) {
     counter1++;
   } else {
     counter1--;
@@ -86,8 +88,8 @@ void ai5_2() {
 }
 
 ////  Encoder2
-void ai4_2() {
-  if (digitalRead(9) == LOW) {
+void ai5_2() {
+  if (digitalRead(8) == LOW) {
     counter2++;
   } else {
     counter2--;
