@@ -1349,6 +1349,17 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391100.pdf"&gt; Data sheet
 <class number="0" name="default" width="0.8128" drill="0.8128">
 <clearance class="0" value="0.8128"/>
 </class>
+<class number="1" name="GND" width="0" drill="0">
+</class>
+<class number="2" name="9V" width="2.54" drill="2.54">
+<clearance class="2" value="0.8128"/>
+</class>
+<class number="3" name="12V" width="3.556" drill="3.556">
+<clearance class="3" value="0.8128"/>
+</class>
+<class number="4" name="5V" width="1.778" drill="1.778">
+<clearance class="4" value="0.8128"/>
+</class>
 </classes>
 <parts>
 <part name="U$1" library="robocon" deviceset="BUCK_CONVERTER" device=""/>
@@ -1704,7 +1715,7 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391100.pdf"&gt; Data sheet
 <pinref part="A2LED" gate="G$1" pin="C"/>
 </segment>
 </net>
-<net name="5V" class="0">
+<net name="5V" class="4">
 <segment>
 <pinref part="U$1" gate="G$1" pin="OUT+"/>
 <junction x="-152.4" y="101.6"/>
@@ -1764,7 +1775,7 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391100.pdf"&gt; Data sheet
 <junction x="-142.24" y="109.22"/>
 </segment>
 </net>
-<net name="12V_OUT" class="0">
+<net name="12V_OUT" class="3">
 <segment>
 <pinref part="MOSFET" gate="1" pin="IN"/>
 <junction x="-154.94" y="-27.94"/>
@@ -1796,7 +1807,7 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391100.pdf"&gt; Data sheet
 <label x="-187.96" y="101.6" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="12V_IN_GND" class="0">
+<net name="12V_IN_GND" class="2">
 <segment>
 <pinref part="MOSFET" gate="1" pin="GND"/>
 <junction x="-147.32" y="-35.56"/>
@@ -1812,7 +1823,7 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391100.pdf"&gt; Data sheet
 <junction x="-147.32" y="-45.72"/>
 </segment>
 </net>
-<net name="9V" class="0">
+<net name="9V" class="2">
 <segment>
 <pinref part="7809" gate="1" pin="OUT"/>
 <junction x="-208.28" y="99.06"/>
