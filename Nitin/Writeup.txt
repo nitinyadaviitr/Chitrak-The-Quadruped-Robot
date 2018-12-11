@@ -1,0 +1,6 @@
+Kitty will travel in outdoor terrain that is too steep, rutted, rocky, wet, muddy, and snowy land which clutter limit the utility of wheeled vehicles. Kitty Robot is aimed to be a dynamically stable quadruped robot with sophisticated computing, and power systems, advanced actuators and dynamic controls. 
+Each leg has 2-DOF with two actuators (one for the hip joint, and one for knee joint), for a total of 8 motors.
+The total weight of the prototype is about 14kg. It is powered by 4 LiPo batteries(1 for each leg) driving the 8 Worm-Gear motors.
+Each actuator unit consists of a rotary encoder attached to it for the feedback of angular rotation of leg about a joint. 
+All the 4 motors are driven in sync to follow a predefined gait cycle.
+Matlab Simulation has given us a virtual representation of the bot following a particular gait cycle according to the mathematical equations we are implementing.

@@ -164,18 +164,8 @@
 <wire x1="0" y1="18.72" x2="1.27" y2="-265.43" width="0" layer="20"/>
 <text x="15.24" y="-80.01" size="12.7" layer="1" font="vector" rot="R90">MaRS IITR</text>
 <text x="17.78" y="-261.62" size="12.7" layer="1" font="vector" rot="R90">KITTY 1.0</text>
-<text x="11.43" y="-160.02" size="3.81" layer="1">5V</text>
-<text x="162.56" y="-38.1" size="3.81" layer="1">5V</text>
-<text x="49.53" y="-242.57" size="3.81" layer="1">5V</text>
-<text x="44.45" y="-57.15" size="3.81" layer="1">9V</text>
-<text x="177.8" y="-223.52" size="3.81" layer="1">E1</text>
-<text x="176.53" y="-184.15" size="3.81" layer="1">E2</text>
-<text x="29.21" y="-232.41" size="3.81" layer="1">E3</text>
-<text x="26.67" y="-179.07" size="3.81" layer="1">E4</text>
-<text x="179.07" y="-80.01" size="3.81" layer="1">E7</text>
-<text x="185.42" y="-26.67" size="3.81" layer="1">E8</text>
-<text x="29.21" y="-85.09" size="3.81" layer="1">E5</text>
-<text x="35.56" y="-48.26" size="3.81" layer="1">E6</text>
+<text x="43.18" y="-57.15" size="3.81" layer="1">9V</text>
+<text x="35.56" y="-49.53" size="3.81" layer="1">E6</text>
 </plain>
 <libraries>
 <library name="robocon">
@@ -1357,7 +1347,6 @@ design rules under a new name.</description>
 <wire x1="174.625" y1="-43.815" x2="173.74155" y2="-44.653196875" width="0.8128" layer="1"/>
 <wire x1="74.422" y1="-208.28" x2="60.96" y2="-208.28" width="1.778" layer="1"/>
 <wire x1="60.96" y1="-208.28" x2="58.42" y2="-205.74" width="1.778" layer="1"/>
-<wire x1="175.5648" y1="-38.2016" x2="174.625" y2="-43.815" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="5V">
 <contactref element="U$1" pad="OUT+"/>
