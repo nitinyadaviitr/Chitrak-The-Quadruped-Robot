@@ -3,10 +3,10 @@
 #define motor1pwm_1  3
 #define motor2pwm_1  2
 
-#define motor1_2  28
-#define motor2_2  29
+#define motor1_2  30
+#define motor2_2  32
 #define motor1pwm_2  5
-#define motor2pwm_2  4
+#define motor2pwm_2  10
 
 #include <SoftwareSerial.h>
 
@@ -75,10 +75,10 @@ void loop()
         for (float t = 0, u=0;t < 3.14159,u < 8.2; t = t + 0.3,u = u + 0.8)
         {
 
-      float xe_1 = 12 * cos(t);
+      float xe_1 = 12 * cos(t);         //12*cos(t)
       float ye_1 = -40 + 8*sin(t);
 
-      float xe_2 = 4 + 2.5*u ;
+      float xe_2 = 4 + 1*u ;
       float ye_2 = -40 ;
 
       if ( counter1_1 != temp1_1 ){
@@ -140,11 +140,11 @@ void loop()
          { alpha_2 = atan(ye_2 / xe_2);
          }
     
-        theta1_1 = 57.2958 * (cosine_rule(l1,l2, sqrt(xe_1 * xe_1 + ye_1 * ye_1)) + alpha_1);
+        theta1_1 = 57.2958 * (cosine_rule(l1,l2, sqrt(xe_1 * xe_1 + ye_1 * ye_1)) + alpha_1);        
         theta2_1 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_1 * xe_1 + ye_1 * ye_1), l1, l2));
 
-        error1_1 = theta1_1 - theta1c_1 + 39.94;
-        error2_1 = theta2_1 - theta2c_1/4 + 66.72;
+        error1_1 = theta1_1 - theta1c_1 + 39.94;        //36.865   39.94
+        error2_1 = theta2_1 - theta2c_1/4 + 66.72;      //53.14    66.72
 
         dif_error1_1 = error1_1 - prev_error1_1;
         dif_error2_1 = error2_1 - prev_error2_1;
@@ -196,7 +196,7 @@ void loop()
         prev_error2_2 = error2_2;
 
         correction1_2 = map(abs(c1_2), 0, 30, 0, 50);
-        correction2_2 = map(abs(c2_2), 0, 40, 0, 50);
+        correction2_2 = map(abs(c2_2), 0, 40, 0, 40);
 
  
         if (error1_1 < 0 ){
@@ -247,7 +247,7 @@ void loop()
       float xe_2 = 12 * cos(t);
       float ye_2 = -40 + 8 * sin(t);
 
-      float xe_1 = -12 + 2.5*u ;
+      float xe_1 = -12 + u ;      //-12+u
       float ye_1 = -40 ;
 
       if ( counter1_1 != temp1_1 ){
@@ -312,8 +312,8 @@ void loop()
         theta1_1 = 57.2958 * (cosine_rule(l1,l2, sqrt(xe_1 * xe_1 + ye_1 * ye_1)) + alpha_1);
         theta2_1 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_1 * xe_1 + ye_1 * ye_1), l1, l2));
 
-        error1_1 = theta1_1 - theta1c_1 + 39.94;            
-        error2_1 = theta2_1 - theta2c_1/4 + 66.72;
+        error1_1 = theta1_1 - theta1c_1 + 39.94;            //39.94
+        error2_1 = theta2_1 - theta2c_1/4 + 66.72;          //66.72
 
         dif_error1_1 = error1_1 - prev_error1_1;
         dif_error2_1 = error2_1 - prev_error2_1;
@@ -325,7 +325,7 @@ void loop()
         prev_error2_1 = error2_1;
 
         correction1_1 = map(abs(c1_1), 0, 30, 0, 50);
-        correction2_1 = map(abs(c2_1), 0, 40, 0, 50);
+        correction2_1 = map(abs(c2_1), 0, 40, 0, 40);
 
         Serial.print("x=");
         Serial.println(xe_1);       
@@ -413,10 +413,10 @@ void loop()
         for (float u=0 ; u < 16.1 ; u = u + 0.8)
         {
 
-      float xe_2 = -12+2.5*u;
+      float xe_2 = -12+1*u;
       float ye_2 = -40;
 
-      float xe_1 = -4 + 2.5*u ;
+      float xe_1 = -4 + u ;       //-4+u
       float ye_1 = -40 ;
 
       if ( counter1_1 != temp1_1 ){
@@ -480,8 +480,8 @@ void loop()
         theta1_1 = 57.2958 * (cosine_rule(l1,l2, sqrt(xe_1 * xe_1 + ye_1 * ye_1)) + alpha_1);
         theta2_1 = 57.2958 * (-3.14159 + cosine_rule(sqrt(xe_1 * xe_1 + ye_1 * ye_1), l1, l2));
 
-        error1_1 = theta1_1 - theta1c_1 + 39.94;            
-        error2_1 = theta2_1 - theta2c_1/4 + 66.72;
+        error1_1 = theta1_1 - theta1c_1 + 39.94;             //39.94
+        error2_1 = theta2_1 - theta2c_1/4 + 66.72;            //66.72
 
         dif_error1_1 = error1_1 - prev_error1_1;
         dif_error2_1 = error2_1 - prev_error2_1;
@@ -492,8 +492,8 @@ void loop()
         prev_error1_1 = error1_1;
         prev_error2_1 = error2_1;
 
-        correction1_1 = map(abs(c1_1), 0, 30, 0, 50);
-        correction2_1 = map(abs(c2_1), 0, 40, 0, 50);
+        correction1_1 = map(abs(c1_1), 0, 30, 0, 50);   
+        correction2_1 = map(abs(c2_1), 0, 40, 0, 40);
 
         Serial.print("x=");
         Serial.println(xe_1);       
@@ -533,7 +533,7 @@ void loop()
         prev_error2_2 = error2_2;
 
         correction1_2 = map(abs(c1_2), 0, 30, 0, 50);
-        correction2_2 = map(abs(c2_2), 0, 40, 0, 50);
+        correction2_2 = map(abs(c2_2), 0, 40, 0, 40);
 
  
         if (error1_1 < 0 ){

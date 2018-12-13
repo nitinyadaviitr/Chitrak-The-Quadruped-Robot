@@ -1,7 +1,7 @@
-#define motor1  28
-#define motor2  29
+#define motor1  30
+#define motor2  32
 #define motor1pwm  5
-#define motor2pwm  4
+#define motor2pwm  10
 
 float theta1c=0, theta2c=0;
 int x;
@@ -64,7 +64,7 @@ void loop() {
           counter1 = 0;
          }
         theta1c = (counter1 * 0.6);
-//        Serial.println("theta1c");
+        Serial.println("theta1c");
         Serial.println(theta1c);
      }
       if ( counter2 != temp2 ) {
@@ -73,7 +73,7 @@ void loop() {
           counter2 = 0;
         }
         theta2c = -(counter2 * 0.6);
-//        Serial.println("theta2c");
+        Serial.println("theta2c");
         Serial.println(theta2c/4);
       }
 }

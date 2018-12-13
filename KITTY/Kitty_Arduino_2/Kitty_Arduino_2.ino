@@ -3,7 +3,7 @@
 #define motor1pwm_3  3
 #define motor2pwm_3  2
 
-#define motor1_4  28
+#define motor1_4  30
 #define motor2_4  29
 #define motor1pwm_4  5
 #define motor2pwm_4  4
@@ -73,10 +73,10 @@ void loop()
     for (float u = 0; u < 16.1 ; u = u + 0.8)
     {
 
-      float xe_3 = -4 + 2.5*u ;
+      float xe_3 = -4 + 1*u ;
       float ye_3 = -40;
 
-      float xe_4 = -12 + 2.5*u ;
+      float xe_4 = -12 + 1*u ;
       float ye_4 = -40 ;
 
       if ( counter1_3 != temp1_3 )
@@ -116,7 +116,7 @@ void loop()
         if (counter2_4 > 600)
           counter2_4 = 0;
 
-        theta2c_4 = (counter2_4 * 0.6);
+        theta2c_4 = -(counter2_4 * 0.6);
       }
 
 
@@ -151,7 +151,7 @@ void loop()
         c2_3 = Kp2 * error2_3 + Kd2 * (dif_error2_3);
 
         correction1_3 = map(abs(c1_3), 0, 30, 0, 50);
-        correction2_3 = map(abs(c2_3), 0, 40, 0, 50);
+        correction2_3 = map(abs(c2_3), 0, 40, 0, 40);
 
         Serial.print("theta1_4=");
         Serial.println(theta1_3);
@@ -182,7 +182,7 @@ void loop()
         c2_4 = Kp2 * error2_4 + Kd2 * (dif_error2_4);
 
         correction1_4 = map(abs(c1_4), 0, 30, 0, 50);
-        correction2_4 = map(abs(c2_4), 0, 40, 0, 50);
+        correction2_4 = map(abs(c2_4), 0, 40, 0, 40);
       
 
    
@@ -237,7 +237,7 @@ void loop()
       float xe_3 = 12 * cos(t);
       float ye_3 = -40 + 8 * sin(t);
 
-      float xe_4 = 4 + 2.5*u ;
+      float xe_4 = 4 + 1*u ;
       float ye_4 = -40 ;
 
       if ( counter1_3 != temp1_3 )
@@ -277,7 +277,7 @@ void loop()
         if (counter2_4 > 600)
           counter2_4 = 0;
 
-        theta2c_4 = (counter2_4 * 0.6);
+        theta2c_4 = -(counter2_4 * 0.6);
       }
 
 
@@ -343,7 +343,7 @@ void loop()
         c2_4 = Kp2 * error2_4 + Kd2 * (dif_error2_4);
 
         correction1_4 = map(abs(c1_4), 0, 30, 0, 50);
-        correction2_4 = map(abs(c2_4), 0, 40, 0, 50);
+        correction2_4 = map(abs(c2_4), 0, 40, 0, 40);
       
 
    
@@ -398,7 +398,7 @@ void loop()
       float xe_4 = 12 * cos(t);
       float ye_4 = -40 + 8 * sin(t);
 
-      float xe_3 = -12 + 2.5 * u ;
+      float xe_3 = -12 + 1 * u ;
       float ye_3 = -40 ;
 
       if ( counter1_3 != temp1_3 )
@@ -438,7 +438,7 @@ void loop()
         if (counter2_4 > 600)
           counter2_4 = 0;
 
-        theta2c_4 = (counter2_4 * 0.6);
+        theta2c_4 = -(counter2_4 * 0.6);
       }
 
 
@@ -473,7 +473,7 @@ void loop()
         c2_3 = Kp2 * error2_3 + Kd2 * (dif_error2_3);
 
         correction1_3 = map(abs(c1_3), 0, 30, 0, 50);
-        correction2_3 = map(abs(c2_3), 0, 40, 0, 50);
+        correction2_3 = map(abs(c2_3), 0, 40, 0, 40);
 
         Serial.print("theta1_4=");
         Serial.println(theta1_3);
