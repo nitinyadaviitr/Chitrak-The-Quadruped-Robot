@@ -1349,8 +1349,6 @@ Source: &lt;a href="http://www.farnell.com/datasheets/391100.pdf"&gt; Data sheet
 <class number="0" name="default" width="0.8128" drill="0.8128">
 <clearance class="0" value="0.8128"/>
 </class>
-<class number="1" name="GND" width="0" drill="0">
-</class>
 <class number="2" name="9V" width="2.54" drill="2.54">
 <clearance class="2" value="0.8128"/>
 </class>
